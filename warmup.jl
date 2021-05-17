@@ -1,9 +1,11 @@
-using StatsPlots
-using Distributions
 
-mu = 3.14;
-sigma = 1.0;
-x = [mu - 5 * sigma:0.1:mu + 5 * sigma;];
-N = Normal(mu, sigma^2);
-p = plot(x, pdf.(N, x));
-display(p)
+using DifferentialEquations, Plots
+
+a=3.0
+f(y,a) =   sign(y)  + a -  y
+f(y,a,t) = f(y,a) # just for the difeq solver
+
+sol = solve(  ODEProblem( f, 3, (0,10.0), 0.2 ));
+plot( sol , legend=false, background_color_inside=:black , ylims=(-7,7), lw=3, c=:red)
+
+
